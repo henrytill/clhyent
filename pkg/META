@@ -1,0 +1,7 @@
+description = "A client for hyponome"
+version = "%%VERSION_NUM%%"
+requires = ""
+archive(byte) = "clhyent.cma"
+archive(native) = "clhyent.cmxa"
+plugin(byte) = "clhyent.cma"
+plugin(native) = "clhyent.cmxs"
