@@ -4,6 +4,6 @@
 open Topkg
 
 let () =
-  Pkg.describe "clhyent" @@ fun c ->
+  Pkg.describe "clhyent" ~licenses:[Pkg.std_file "LICENSE"] @@ fun c ->
   Ok [ Pkg.mllib "src/clhyent.mllib";
        Pkg.test "test/test"; ]
