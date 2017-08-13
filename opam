@@ -14,6 +14,7 @@ depends:
   "ocamlbuild" {build}
   "topkg" {build & >= "0.9.0"}
   "rresult" {build}
+  "base-bytes"
   "base-unix"
   "ocaml-protoc"
   "nocrypto"
@@ -22,7 +23,11 @@ depends:
 ]
 depopts: []
 build:
-[[
-  "ocaml" "pkg/pkg.ml" "build"
-          "--dev-pkg" "%{dev}%"
-]]
+[
+  [ "ocaml" "pkg/pkg.ml" "build" "--dev-pkg" "%{pinned}%" "--tests" "false" ]
+]
+build-test:
+[
+  [ "ocaml" "pkg/pkg.ml" "build" "--dev-pkg" "%{pinned}%" "--tests" "true" ]
+  [ "ocaml" "pkg/pkg.ml" "test"]
+]
