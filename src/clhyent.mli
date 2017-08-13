@@ -10,6 +10,14 @@
 
 (** {1 Clhyent} *)
 
+val cstruct_to_bytes : Cstruct.t -> Bytes.t
+
+val bytes_to_file_chunk : Bytes.t -> File_chunk_types.file_chunk
+
+val write_file_chunk : File_chunk_types.file_chunk -> string -> unit
+
+val read_file_chunk : string -> File_chunk_types.file_chunk
+
 (*---------------------------------------------------------------------------
    Copyright 2017 Henry Till
 

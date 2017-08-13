@@ -4,6 +4,34 @@
    %%NAME%% %%VERSION%%
   ---------------------------------------------------------------------------*)
 
+let cstruct_to_bytes cs =
+  let len = Cstruct.len cs in
+  let ret = Bytes.create len in
+  Cstruct.blit_to_bytes cs 0 ret 0 len;
+  ret
+
+let bytes_to_file_chunk bs =
+  let hs = cstruct_to_bytes (Nocrypto.Hash.(digest `SHA1 (Cstruct.of_bytes bs))) in
+  File_chunk_types.({ hash = hs; data = bs })
+
+let write_file_chunk fc file =
+  let encoder = Pbrt.Encoder.create () in
+  File_chunk_pb.encode_file_chunk fc encoder;
+  let out_channel = open_out file in
+  output_bytes out_channel (Pbrt.Encoder.to_bytes encoder);
+  close_out out_channel
+
+let read_file_chunk file =
+  let bytes =
+    let ic = open_in file in
+    let len = in_channel_length ic in
+    let bytes = Bytes.create len in
+    really_input ic bytes 0 len;
+    close_in ic;
+    bytes
+  in
+  File_chunk_pb.decode_file_chunk (Pbrt.Decoder.of_bytes bytes)
+
 (*---------------------------------------------------------------------------
    Copyright 2017 Henry Till
 
