@@ -5,8 +5,9 @@
   ---------------------------------------------------------------------------*)
 
 let file_chunks_equal fc1 fc2 =
+  let eq a b = compare a b == 0 in
   let open File_chunk_types in
-  Bytes.equal fc1.hash fc2.hash && Bytes.equal fc1.data fc2.data
+  eq fc1.hash fc2.hash && eq fc1.data fc2.data
 
 let round_trip s =
   let bs = Bytes.of_string s in
