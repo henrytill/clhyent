@@ -1,4 +1,4 @@
-PKG bytes unix
+PKG bytes unix ocaml-protoc nocrypto cstruct qcheck
 S src
 S test
 B _build/**
